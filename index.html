@@ -384,14 +384,14 @@
     border: 2px solid var(--p-color);
   }
   
-  /* Botones base */
-  .add-btn, .btn-primary, .btn-secondary, .wa-btn, .qty-btn, .filter-btn, .map-cta {
+  /* Botones base y Enlaces de navegación */
+  .add-btn, .btn-primary, .btn-secondary, .wa-btn, .qty-btn, .filter-btn, .map-cta, .nav-links a, .footer-links a {
     position: relative;
     overflow: visible;
     isolation: isolate;
   }
   
-  .add-btn:active, .btn-primary:active, .btn-secondary:active {
+  .add-btn:active, .btn-primary:active, .btn-secondary:active, .nav-links a:active {
     transform: scale(0.95);
   }
   
@@ -1076,7 +1076,7 @@ function changeQty(id, delta) {
 const SAZORY_COLORS = ['#E5ADA8', '#D0A77B', '#725C3F', '#D8D7B2', '#EFE8D8'];
 
 function createParticles(e, forceBtn = null) {
-  const btn = forceBtn || e.target.closest('.add-btn, .btn-primary, .btn-secondary, .wa-btn, .qty-btn, .map-cta, .filter-btn, button');
+  const btn = forceBtn || e.target.closest('.add-btn, .btn-primary, .btn-secondary, .wa-btn, .qty-btn, .map-cta, .filter-btn, .nav-links a, .footer-links a, button');
   if (!btn) return;
 
   for (let i = 0; i < 30; i++) {
