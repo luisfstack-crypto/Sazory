@@ -450,22 +450,22 @@
 <!-- ===== STRIP ===== -->
 <div class="strip">
   <div class="strip-inner" aria-hidden="true">
-    <span class="strip-item">Cheesecake</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Macarons</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Brownies</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Tres Leches</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Tartas</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Roles de Canela</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Cheesecake de Oreo</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Cheesecake de Fresa</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Flan Napolitano</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Chocoflan</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Gelatina Mosaico</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Flan en Vasito</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Repostería Artesanal</span><span class="strip-dot">✦</span>
     <span class="strip-item">Pedidos Especiales</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Entrega a Domicilio</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Cheesecake</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Macarons</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Brownies</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Tres Leches</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Tartas</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Roles de Canela</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Cheesecake de Oreo</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Cheesecake de Fresa</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Flan Napolitano</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Chocoflan</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Gelatina Mosaico</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Flan en Vasito</span><span class="strip-dot">✦</span>
+    <span class="strip-item">Repostería Artesanal</span><span class="strip-dot">✦</span>
     <span class="strip-item">Pedidos Especiales</span><span class="strip-dot">✦</span>
-    <span class="strip-item">Entrega a Domicilio</span><span class="strip-dot">✦</span>
   </div>
 </div>
 
@@ -479,11 +479,10 @@
     </div>
   </div>
 
-  <!-- PROMO BANNER — edita este texto cuando tengas una promo real -->
   <div class="promo-banner reveal">
     <div>
-      <div class="promo-text">🎉 Promo del día: 2 brownies por el precio de 1</div>
-      <div style="font-size:0.8rem;color:var(--chocolate);opacity:0.6;margin-top:0.2rem;">Válido solo hoy · hasta agotar existencias</div>
+      <div class="promo-text">🎉 ¡Prueba nuestro nuevo Flan Imposible (Chocoflan)!</div>
+      <div style="font-size:0.8rem;color:var(--chocolate);opacity:0.6;margin-top:0.2rem;">Disponible por rebanada o entero</div>
     </div>
     <span class="promo-tag">PROMO DEL DÍA</span>
   </div>
@@ -508,8 +507,8 @@
           <div class="stat-label">Pedidos / mes</div>
         </div>
         <div class="stat">
-          <div class="stat-num">Cheesecake de fresa, Cheesecake de Oreo, Flan napolitano</div>
-          <div class="stat-label">Recetas únicas</div>
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Variedades</div>
         </div>
         <div class="stat">
           <div class="stat-num">100%</div>
@@ -553,7 +552,6 @@
           <div class="map-icon">📍</div>
           <div>
             <div class="map-info-title">Dirección</div>
-            <!-- CAMBIA ESTA DIRECCIÓN POR LA TUYA -->
             <div class="map-info-text">106 C. 29, Hoctún, Yucatán, México</div>
           </div>
         </div>
@@ -600,7 +598,6 @@
       <a href="#menu">Menú</a>
       <a href="#nosotros">Nosotros</a>
       <a href="#ubicacion">Ubicación</a>
-      <!-- CAMBIA EL NÚMERO POR EL TUYO -->
       <a href="https://wa.me/529991256870" target="_blank">WhatsApp</a>
     </div>
   </div>
@@ -658,58 +655,114 @@
 const PRODUCTOS = [
   {
     id: 1,
-    nombre: 'Cheesecake de fresa',
+    nombre: 'Cheesecake de Oreo',
+    detalles: 'Rebanada',
     emoji: '🍰',
-    precio: 120,
-    desc: 'Cremoso con base de galleta y coulis de fresa natural',
+    precio: 38,
+    desc: 'Deliciosa rebanada con trozos de galleta Oreo',
+    imagen: 'cheesecake_oreo_rebanada.jpg',
+    badge: 'Popular',
+    bg: '#EAE6E0'
+  },
+  {
+    id: 2,
+    nombre: 'Cheesecake de Oreo',
+    detalles: 'Entero',
+    emoji: '🎂',
+    precio: 280,
+    desc: 'Cheesecake completo de Oreo, ideal para compartir',
+    imagen: 'cheesecake_oreo_entero.jpg',
+    badge: '',
+    bg: '#EAE6E0'
+  },
+  {
+    id: 3,
+    nombre: 'Cheesecake de Fresas',
+    detalles: 'Rebanada',
+    emoji: '🍓',
+    precio: 38,
+    desc: 'Cremosa rebanada con fresas frescas',
+    imagen: 'cheesecake_fresas_rebanada.jpg',
     badge: 'Favorito',
     bg: '#F5E6E4'
   },
   {
-    id: 2,
-    nombre: 'Brownie de chocolate',
-    emoji: '🍫',
-    precio: 85,
-    desc: 'Intenso, húmedo y con chispas de chocolate oscuro belga',
-    badge: '',
-    bg: '#E8DDD5'
-  },
-  {
-    id: 3,
-    nombre: 'Tarta de limón',
-    emoji: '🍋',
-    precio: 95,
-    desc: 'Suave merengue italiano sobre crema de limón natural',
-    badge: 'Nuevo',
-    bg: '#F2F0DC'
-  },
-  {
     id: 4,
-    nombre: 'Roles de canela',
-    emoji: '🌀',
-    precio: 75,
-    desc: 'Esponjosos con glaseado de queso crema y canela',
+    nombre: 'Cheesecake de Fresas',
+    detalles: 'Entero',
+    emoji: '🍰',
+    precio: 250,
+    desc: 'Cheesecake completo con abundante fresa',
+    imagen: 'cheesecake_fresas_entero.jpg',
     badge: '',
-    bg: '#EFE3D6'
+    bg: '#F5E6E4'
   },
   {
     id: 5,
-    nombre: 'Macarons surtidos',
-    emoji: '🫐',
-    precio: 110,
-    desc: '6 piezas: vainilla, frambuesa, pistacho y caramelo salado',
-    badge: 'Set',
-    bg: '#EAE6E0'
-  },
-  {
-    id: 6,
-    nombre: 'Tres leches',
-    emoji: '🎂',
-    precio: 100,
-    desc: 'Esponjoso y bien empapado, con crema batida artesanal',
+    nombre: 'Flan Napolitano',
+    detalles: 'Rebanada',
+    emoji: '🍮',
+    precio: 30,
+    desc: 'Clásica rebanada con caramelo artesanal',
+    imagen: 'flan_napolitano_rebanada.jpg',
     badge: '',
     bg: '#F2ECE4'
   },
+  {
+    id: 6,
+    nombre: 'Flan Napolitano',
+    detalles: 'Entero',
+    emoji: '🍮',
+    precio: 220,
+    desc: 'Flan napolitano entero, suave y delicioso',
+    imagen: 'flan_napolitano_entero.jpg',
+    badge: '',
+    bg: '#F2ECE4'
+  },
+  {
+    id: 7,
+    nombre: 'Gelatina Mosaico',
+    detalles: 'Vasito',
+    emoji: '🍧',
+    precio: 16,
+    desc: 'Refrescante gelatina de leche con cubos de sabores',
+    imagen: 'gelatina_mosaico.jpg',
+    badge: '',
+    bg: '#F2F0DC'
+  },
+  {
+    id: 8,
+    nombre: 'Flan en Vasito',
+    detalles: 'Individual',
+    emoji: '🍮',
+    precio: 12,
+    desc: 'Porción individual de nuestro flan casero',
+    imagen: 'flan_vasito.jpg',
+    badge: '',
+    bg: '#F2ECE4'
+  },
+  {
+    id: 9,
+    nombre: 'Chocoflan',
+    detalles: 'Rebanada',
+    emoji: '🍰',
+    precio: 40,
+    desc: 'Combinación perfecta de pastel de chocolate y flan',
+    imagen: 'chocoflan_rebanada.jpg',
+    badge: 'Premium',
+    bg: '#E8DDD5'
+  },
+  {
+    id: 10,
+    nombre: 'Chocoflan',
+    detalles: 'Entero',
+    emoji: '🎂',
+    precio: 300,
+    desc: 'Chocoflan entero para tus celebraciones',
+    imagen: 'chocoflan_entero.jpg',
+    badge: '',
+    bg: '#E8DDD5'
+  }
 ];
 
 /* =============================================
@@ -728,12 +781,15 @@ function renderProductos() {
     <div class="product-card">
       <div class="product-img-wrap">
         <div class="product-img-bg" style="background:${p.bg};">
-          <span style="font-size:4rem;">${p.emoji}</span>
+          ${p.imagen ? 
+            `<img src="img/${p.imagen}" alt="${p.nombre}" style="width:100%; height:100%; object-fit:cover;">` : 
+            `<span style="font-size:4rem;">${p.emoji}</span>`
+          }
         </div>
         ${p.badge ? `<span class="product-badge${p.badge==='Nuevo'?' new':''}">${p.badge}</span>` : ''}
       </div>
       <div class="product-body">
-        <div class="product-name">${p.nombre}</div>
+        <div class="product-name">${p.nombre} <small style="opacity:0.5; font-weight:400; font-size:0.8rem;">(${p.detalles})</small></div>
         <div class="product-desc">${p.desc}</div>
         <div class="product-footer">
           <span class="product-price">$${p.precio}</span>
@@ -792,7 +848,7 @@ function updateCartUI() {
     <div class="cart-item">
       <span class="cart-item-emoji">${i.emoji}</span>
       <div class="cart-item-info">
-        <div class="cart-item-name">${i.nombre}</div>
+        <div class="cart-item-name">${i.nombre} <span style="font-size:0.75rem; opacity:0.6;">(${i.detalles})</span></div>
         <div class="cart-item-price">$${i.precio} c/u · subtotal $${i.precio * i.qty}</div>
       </div>
       <div class="cart-item-qty">
