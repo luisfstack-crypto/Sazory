@@ -628,6 +628,16 @@
     </div>
   </div>
   <div class="cart-footer" id="cart-footer" style="display:none;">
+    <div class="cart-summary" style="margin-bottom: 0.8rem; border-bottom: 1px dashed rgba(114,92,63,0.1); padding-bottom: 0.8rem;">
+      <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:0.4rem; opacity:0.6;">
+        <span>Productos</span>
+        <span id="cart-subtotal">$0</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; font-size:0.9rem; opacity:0.6;">
+        <span>Costo de envío</span>
+        <span>$10</span>
+      </div>
+    </div>
     <div class="cart-total">
       <span>Total</span>
       <span>
@@ -690,7 +700,7 @@ const PRODUCTOS = [
     id: 4,
     nombre: 'Cheesecake de Fresas',
     detalles: 'Entero',
-    emoji: '🍰',
+    emoji: '🎂',
     precio: 250,
     desc: 'Cheesecake completo con abundante fresa',
     imagen: 'cheesecake_fresas_entero.jpg',
@@ -723,7 +733,7 @@ const PRODUCTOS = [
     id: 7,
     nombre: 'Gelatina Mosaico',
     detalles: 'Vasito',
-    emoji: '🍧',
+    emoji: '🍮',
     precio: 16,
     desc: 'Refrescante gelatina de leche con cubos de sabores',
     imagen: 'gelatina_mosaico.jpg',
@@ -771,6 +781,7 @@ const PRODUCTOS = [
    Ejemplo Mérida: 529991234567
    ============================================= */
 const WA_NUMBER = '529991256870';
+const SHIPPING_FEE = 10;
 
 /* ===== CARRITO ===== */
 let cart = {};
@@ -827,22 +838,23 @@ function updateCartUI() {
   const count = items.reduce((s, i) => s + i.qty, 0);
 
   document.getElementById('cart-count').textContent = count;
-
   const itemsEl = document.getElementById('cart-items');
-  const emptyEl = document.getElementById('cart-empty');
   const footer  = document.getElementById('cart-footer');
 
   if (items.length === 0) {
-    itemsEl.innerHTML = '';
-    itemsEl.appendChild(emptyEl);
-    emptyEl.style.display = '';
+    itemsEl.innerHTML = `
+      <div class="cart-empty" id="cart-empty">
+        <div class="cart-empty-icon">🛒</div>
+        <div>Tu carrito está vacío</div>
+      </div>
+    `;
     footer.style.display = 'none';
     return;
   }
 
-  emptyEl.style.display = 'none';
-  footer.style.display = '';
-  document.getElementById('cart-total-price').textContent = '$' + total;
+  footer.style.display = 'block';
+  document.getElementById('cart-subtotal').textContent = '$' + total;
+  document.getElementById('cart-total-price').textContent = '$' + (total + SHIPPING_FEE);
 
   itemsEl.innerHTML = items.map(i => `
     <div class="cart-item">
@@ -868,11 +880,14 @@ function toggleCart() {
 function sendWhatsApp() {
   const items = Object.values(cart).filter(i => i.qty > 0);
   if (!items.length) return;
-  const total = items.reduce((s, i) => s + i.precio * i.qty, 0);
-  const lineas = items.map(i => `  • ${i.nombre} x${i.qty} — $${i.precio * i.qty} MXN`).join('\n');
+  const subtotal = items.reduce((s, i) => s + i.precio * i.qty, 0);
+  const total = subtotal + SHIPPING_FEE;
+  const lineas = items.map(i => `  • ${i.nombre} (${i.detalles}) x${i.qty} — $${i.precio * i.qty} MXN`).join('\n');
   const mensaje =
     `¡Hola Sazory! 🍰 Quiero hacer un pedido:\n\n` +
     `${lineas}\n\n` +
+    `Subtotal: $${subtotal} MXN\n` +
+    `Envío: $${SHIPPING_FEE} MXN\n` +
     `*Total: $${total} MXN*\n\n` +
     `¿Me pueden confirmar disponibilidad, tiempo de entrega y método de pago? ¡Gracias!`;
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank');
