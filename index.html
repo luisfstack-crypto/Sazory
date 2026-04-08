@@ -810,20 +810,27 @@
     <button class="close-btn" onclick="toggleCart()">✕</button>
   </div>
   <div class="cart-items" id="cart-items">
-    <div class="cart-empty" id="cart-empty">
-      <div class="cart-empty-icon">🛒</div>
-      <div>Tu carrito está vacío</div>
+    <!-- Los productos se cargan aquí -->
+  </div>
+
+  <!-- MODO DE ENTREGA -->
+  <div id="delivery-method-wrap" style="padding: 1.5rem; background: rgba(114,92,63,0.03); display:none; border-top: 1px dashed rgba(114,92,63,0.1);">
+    <p style="font-size: 0.75rem; font-weight: 700; color: var(--chocolate); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em;">¿Cómo prefieres tu entrega?</p>
+    <div style="display: flex; gap: 0.6rem;">
+      <button class="filter-btn active" id="btn-delivery-dom" onclick="setDelivery('domicilio', this)" style="flex:1; font-size: 0.75rem; padding: 0.8rem;">🛵 A domicilio</button>
+      <button class="filter-btn" id="btn-delivery-pick" onclick="setDelivery('recoger', this)" style="flex:1; font-size: 0.75rem; padding: 0.8rem;">🏠 Pasar a buscar</button>
     </div>
   </div>
+
   <div class="cart-footer" id="cart-footer" style="display:none;">
     <div class="cart-summary" style="margin-bottom: 0.8rem; border-bottom: 1px dashed rgba(114,92,63,0.1); padding-bottom: 0.8rem;">
       <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:0.4rem; opacity:0.6;">
         <span>Productos</span>
         <span id="cart-subtotal">$0</span>
       </div>
-      <div style="display:flex; justify-content:space-between; font-size:0.9rem; opacity:0.6;">
+      <div id="shipping-row" style="display:flex; justify-content:space-between; font-size:0.9rem; opacity:0.6;">
         <span>Costo de envío</span>
-        <span>$10</span>
+        <span id="cart-shipping">$10</span>
       </div>
     </div>
     <div class="cart-total">
@@ -989,8 +996,16 @@ const SHIPPING_FEE = 10;
 
 /* ===== CARRITO ===== */
 let cart = JSON.parse(localStorage.getItem('sazory-cart')) || {};
-
 let currentFilter = 'Todos';
+let deliveryMethod = 'domicilio'; // 'domicilio' o 'recoger'
+
+function setDelivery(method, btn) {
+  deliveryMethod = method;
+  document.getElementById('btn-delivery-dom').classList.remove('active');
+  document.getElementById('btn-delivery-pick').classList.remove('active');
+  btn.classList.add('active');
+  updateCartUI();
+}
 
 function renderProductos() {
   const grid = document.getElementById('productos-grid');
@@ -1111,6 +1126,7 @@ function updateCartUI() {
   document.getElementById('cart-count').textContent = count;
   const itemsEl = document.getElementById('cart-items');
   const footer  = document.getElementById('cart-footer');
+  const deliveryWrap = document.getElementById('delivery-method-wrap');
 
   if (items.length === 0) {
     itemsEl.innerHTML = `
@@ -1120,12 +1136,21 @@ function updateCartUI() {
       </div>
     `;
     footer.style.display = 'none';
+    deliveryWrap.style.display = 'none';
     return;
   }
 
   footer.style.display = 'block';
+  deliveryWrap.style.display = 'block';
+  
+  const currentShipping = deliveryMethod === 'domicilio' ? SHIPPING_FEE : 0;
+  
   document.getElementById('cart-subtotal').textContent = '$' + total;
-  document.getElementById('cart-total-price').textContent = '$' + (total + SHIPPING_FEE);
+  document.getElementById('cart-shipping').textContent = deliveryMethod === 'domicilio' ? '$' + SHIPPING_FEE : 'Gratis';
+  document.getElementById('shipping-row').style.opacity = deliveryMethod === 'domicilio' ? '0.6' : '1';
+  document.getElementById('shipping-row').style.color = deliveryMethod === 'domicilio' ? 'inherit' : '#2ecc71';
+  
+  document.getElementById('cart-total-price').textContent = '$' + (total + currentShipping);
 
   itemsEl.innerHTML = items.map(i => `
     <div class="cart-item">
@@ -1151,16 +1176,23 @@ function toggleCart() {
 function sendWhatsApp() {
   const items = Object.values(cart).filter(i => i.qty > 0);
   if (!items.length) return;
+  
   const subtotal = items.reduce((s, i) => s + i.precio * i.qty, 0);
-  const total = subtotal + SHIPPING_FEE;
+  const isDelivery = deliveryMethod === 'domicilio';
+  const shipping = isDelivery ? SHIPPING_FEE : 0;
+  const total = subtotal + shipping;
+  const deliveryText = isDelivery ? '🛵 Envío a domicilio' : '🏠 Pasar a buscar (Pick up)';
+  
   const lineas = items.map(i => `  • ${i.nombre} (${i.detalles}) x${i.qty} — $${i.precio * i.qty} MXN`).join('\n');
   const mensaje =
     `¡Hola Sazory! 🍰 Quiero hacer un pedido:\n\n` +
     `${lineas}\n\n` +
+    `MÉTODO DE ENTREGA: ${deliveryText}\n` +
+    `--------------------------------\n` +
     `Subtotal: $${subtotal} MXN\n` +
-    `Envío: $${SHIPPING_FEE} MXN\n` +
-    `*Total: $${total} MXN*\n\n` +
-    `¿Me pueden confirmar disponibilidad, tiempo de entrega y método de pago? ¡Gracias!`;
+    (isDelivery ? `Envío: $${shipping} MXN\n` : `Envío: Gratis\n`) +
+    `*TOTAL: $${total} MXN*\n\n` +
+    `¿Me pueden confirmar disponibilidad y método de pago? ¡Gracias!`;
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
